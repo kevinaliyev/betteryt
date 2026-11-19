@@ -1,0 +1,11 @@
+# OS & editor files
+.DS_Store
+Thumbs.db
+*.swp
+.vscode/
+.idea/
+
+# Packaged extension archives
+*.zip
+*.crx
+*.xpi

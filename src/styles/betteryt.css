@@ -1,0 +1,213 @@
+/* ==========================================================================
+   BetterYT — YouTube UI Rework Stylesheet
+   Controlled via data-byt-* attributes on <html> for instant live toggling.
+   ========================================================================== */
+
+:root {
+  --byt-masthead-h: var(--ytd-masthead-height, 56px);
+  --byt-theater-height: calc(100vh - var(--byt-masthead-h));
+}
+
+html[data-byt-theater-mode="cinematic"] {
+  --byt-theater-height: 85vh;
+}
+
+html[data-byt-theater-mode="fullbleed"] {
+  --byt-theater-height: 100vh;
+}
+
+/* ==========================================================================
+   1. Independently Scrollable Related Videos Sidebar
+   ========================================================================== */
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #columns.ytd-watch-flexy,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #columns.ytd-watch-grid {
+  align-items: flex-start !important;
+  overflow: visible !important;
+}
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-grid {
+  position: sticky !important;
+  top: calc(var(--byt-masthead-h) + 12px) !important;
+  max-height: calc(100vh - var(--byt-masthead-h) - 20px) !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  overscroll-behavior: contain !important;
+  align-self: flex-start !important;
+  padding-right: 8px !important;
+  padding-bottom: 24px !important;
+  box-sizing: border-box !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(155, 155, 155, 0.45) transparent;
+}
+
+/* Adjust sticky offset when fullbleed auto-hide header is active in theater mode */
+html[data-byt-scrollable-related="true"][data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active
+  ytd-watch-flexy[theater][is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy {
+  top: 12px !important;
+  max-height: calc(100vh - 24px) !important;
+}
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy::-webkit-scrollbar,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-grid::-webkit-scrollbar {
+  width: 6px;
+}
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy::-webkit-scrollbar-track,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy::-webkit-scrollbar-thumb,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-grid::-webkit-scrollbar-thumb {
+  background: rgba(155, 155, 155, 0.35);
+  border-radius: 999px;
+}
+
+html[data-byt-scrollable-related="true"] ytd-watch-flexy[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-flexy:hover::-webkit-scrollbar-thumb,
+html[data-byt-scrollable-related="true"] ytd-watch-grid[is-two-columns_]:not([fullscreen]) #secondary.ytd-watch-grid:hover::-webkit-scrollbar-thumb {
+  background: rgba(155, 155, 155, 0.65);
+}
+
+/* ==========================================================================
+   2. Enhanced Theater Mode (True Full-Width / Full-Height Player)
+   ========================================================================== */
+
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container.ytd-watch-flexy,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container.ytd-watch-flexy,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-theater-container.ytd-watch-flexy {
+  width: 100% !important;
+  max-width: 100vw !important;
+  height: var(--byt-theater-height) !important;
+  max-height: var(--byt-theater-height) !important;
+  min-height: var(--byt-theater-height) !important;
+  background-color: #000 !important;
+}
+
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container #player-container-outer,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container #player-container-inner,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container #player-container,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container #ytd-player,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container .html5-video-player,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container .html5-video-container,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container #ytd-player,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container .html5-video-player,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container .html5-video-container {
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none !important;
+}
+
+/* Override YouTube's inline pixel dimensions on <video> in Theater Mode */
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container video.html5-main-video,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container video.html5-main-video {
+  width: 100% !important;
+  height: 100% !important;
+  left: 0 !important;
+  top: 0 !important;
+  object-fit: contain !important;
+}
+
+/* Ensure bottom control bar & scrubber span the full width of the expanded player */
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #full-bleed-container .ytp-chrome-bottom,
+html[data-byt-theater="true"] ytd-watch-flexy[theater]:not([fullscreen]) #player-full-bleed-container .ytp-chrome-bottom {
+  width: calc(100% - 24px) !important;
+  left: 12px !important;
+}
+
+/* Full-Bleed Theater Mode: Auto-hide top masthead until hovered/focused */
+html[data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active:not(.byt-fullscreen-active) #masthead-container.ytd-app {
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+html[data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active:not(.byt-fullscreen-active) #masthead-container.ytd-app:hover,
+html[data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active:not(.byt-fullscreen-active) #masthead-container.ytd-app:focus-within,
+html[data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active.byt-header-reveal #masthead-container.ytd-app {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+html[data-byt-theater="true"][data-byt-theater-mode="fullbleed"].byt-theater-active:not(.byt-fullscreen-active) #page-manager.ytd-app {
+  margin-top: 0 !important;
+}
+
+/* ==========================================================================
+   3. Protect Player Controls from Interrupt Banners & Overlays
+   ========================================================================== */
+
+/* Always keep player controls & progress bar above in-player overlays */
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-chrome-bottom {
+  z-index: 65 !important;
+}
+
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-progress-bar-container {
+  z-index: 66 !important;
+}
+
+/* Relocate bottom-left toast/snackbar notifications to top-right so they
+   never cover Play/Pause, Next, or Volume controls */
+html[data-byt-protect-controls="true"] ytd-popup-container tp-yt-paper-toast,
+html[data-byt-protect-controls="true"] tp-yt-paper-toast.yt-notification-action-renderer,
+html[data-byt-protect-controls="true"] #toast.yt-notification-action-renderer {
+  top: calc(var(--byt-masthead-h) + 12px) !important;
+  right: 16px !important;
+  bottom: auto !important;
+  left: auto !important;
+  margin: 0 !important;
+  max-width: 380px !important;
+  z-index: 2200 !important;
+}
+
+/* Suppress intrusive promo mealbars & upsell banners that pop over the
+   bottom-left of the viewport / player controls */
+html[data-byt-protect-controls="true"] yt-mealbar-promo-renderer,
+html[data-byt-protect-controls="true"] ytd-mealbar-promo-renderer,
+html[data-byt-protect-controls="true"] ytd-banner-promo-renderer,
+html[data-byt-protect-controls="true"] ytd-popup-container tp-yt-paper-dialog:has(yt-mealbar-promo-renderer),
+html[data-byt-protect-controls="true"] ytd-popup-container tp-yt-paper-dialog:has(ytd-mealbar-promo-renderer) {
+  display: none !important;
+}
+
+/* Move in-player bottom-left banners (Paid promotion, Suggested actions,
+   Product tags) to the top-left so they never overlap Play/Volume buttons */
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-paid-content-overlay {
+  top: 12px !important;
+  bottom: auto !important;
+  left: 12px !important;
+  right: auto !important;
+}
+
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-suggested-action,
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-suggested-action-badge {
+  top: 12px !important;
+  bottom: auto !important;
+  left: 12px !important;
+  right: auto !important;
+}
+
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-featured-product,
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-product-button {
+  top: 52px !important;
+  bottom: auto !important;
+  left: 12px !important;
+  right: auto !important;
+}
+
+/* Keep in-player ad overlays clear of the bottom control bar */
+html[data-byt-protect-controls="true"] .html5-video-player .ytp-ad-overlay-container {
+  bottom: 72px !important;
+}
+
+/* ==========================================================================
+   4. Hide Pause "More Videos" Overlay
+   ========================================================================== */
+
+html[data-byt-hide-pause-overlay="true"] .html5-video-player .ytp-pause-overlay,
+html[data-byt-hide-pause-overlay="true"] .html5-video-player .ytp-pause-overlay-container,
+html[data-byt-hide-pause-overlay="true"] .html5-video-player .ytp-scroll-min.ytp-pause-overlay {
+  display: none !important;
+}
+

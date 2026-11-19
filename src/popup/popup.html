@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BetterYT Settings</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header class="header">
+    <div class="brand">
+      <span class="logo-dot" aria-hidden="true"></span>
+      <div>
+        <h1>BetterYT</h1>
+        <p class="subtitle">YouTube UI Rework</p>
+      </div>
+    </div>
+    <span class="badge" id="statusBadge">Active</span>
+  </header>
+
+  <main class="controls">
+    <section class="card thumb-card" id="thumbCard">
+      <div class="thumb-header">
+        <span class="row-title">Video Thumbnail</span>
+        <span class="thumb-res" id="thumbRes" hidden></span>
+      </div>
+
+      <div class="thumb-content" id="thumbContent" hidden>
+        <div class="thumb-preview-wrap">
+          <img id="thumbPreview" alt="Current video thumbnail preview">
+        </div>
+        <button type="button" class="primary-btn" id="openThumbBtn">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          <span>Open Thumbnail in New Tab</span>
+        </button>
+      </div>
+
+      <p class="thumb-empty" id="thumbEmpty">Open a YouTube video to preview and open its thumbnail.</p>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <div class="row-text">
+          <label for="scrollableRelated" class="row-title">Scrollable Related Videos</label>
+          <p class="row-desc">Scroll the sidebar independently while keeping the video player in view.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="scrollableRelated">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <div class="row-text">
+          <label for="enhancedTheater" class="row-title">Enhanced Theater Mode</label>
+          <p class="row-desc">Expand the theater player to genuinely fill the screen.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="enhancedTheater">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="sub-control" id="theaterModeWrapper">
+        <span class="sub-label">Theater Player Size</span>
+        <div class="segmented" role="radiogroup" aria-label="Theater Player Size">
+          <button type="button" class="seg-btn" data-mode="viewport">Fill Viewport</button>
+          <button type="button" class="seg-btn" data-mode="cinematic">85% Height</button>
+          <button type="button" class="seg-btn" data-mode="fullbleed">Full Bleed</button>
+        </div>
+        <p class="hint" id="theaterHint">Fills the viewport width &amp; height below the top search bar.</p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="row">
+        <div class="row-text">
+          <label for="protectControls" class="row-title">Protect Player Controls</label>
+          <p class="row-desc">Move toast popups &amp; banners away from Play/Pause and Volume buttons.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="protectControls">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="divider"></div>
+
+      <div class="row">
+        <div class="row-text">
+          <label for="hidePauseOverlay" class="row-title">Hide Pause "More Videos"</label>
+          <p class="row-desc">Remove the intrusive recommendation overlay when paused.</p>
+        </div>
+        <label class="switch">
+          <input type="checkbox" id="hidePauseOverlay">
+          <span class="slider"></span>
+        </label>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <button type="button" class="reset-btn" id="resetBtn">Reset defaults</button>
+    <span class="live-note">Applies live to YouTube tabs</span>
+  </footer>
+
+  <script src="popup.js"></script>
+</body>
+</html>

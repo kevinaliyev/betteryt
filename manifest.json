@@ -1,0 +1,35 @@
+{
+  "manifest_version": 3,
+  "name": "BetterYT — YouTube UI Rework",
+  "version": "1.0.0",
+  "description": "Reworks the YouTube watch experience: independently scrollable related videos, full-size Theater Mode, and unobstructed player controls.",
+  "permissions": [
+    "storage",
+    "activeTab"
+  ],
+  "action": {
+    "default_title": "BetterYT Settings",
+    "default_popup": "src/popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://youtube.com/*"
+      ],
+      "css": [
+        "src/styles/betteryt.css"
+      ],
+      "js": [
+        "src/content/content.js"
+      ],
+      "run_at": "document_start"
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "betteryt@local.extension",
+      "strict_min_version": "109.0"
+    }
+  }
+}
